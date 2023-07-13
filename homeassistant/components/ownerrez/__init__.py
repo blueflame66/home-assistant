@@ -1,33 +1,25 @@
-"""The OwnerRez integration."""
+"""The Owner Reservations integration."""
 from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.const import CONF_API_TOKEN, CONF_USERNAME
 
-
-from .const import DOMAIN, CONF_DAYS
-from .api import OwnerRes
+from .const import DOMAIN
 
 # TODO List the platforms that you want to support.
 # For your initial PR, limit it to 1 platform.
-PLATFORMS: list[Platform] = [Platform.CALENDAR]
+PLATFORMS: list[Platform] = [Platform.LIGHT]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up OwnerRez from a config entry."""
+    """Set up Owner Reservations from a config entry."""
 
     hass.data.setdefault(DOMAIN, {})
-
-    # 1. Create API instance
-    config = entry.data
-    MyAPI = OwnerRes(
-        config.get(CONF_USERNAME), config.get(CONF_API_TOKEN), config.get(CONF_DAYS)
-    )
+    # TODO 1. Create API instance
     # TODO 2. Validate the API connection (and authentication)
-    # 3. Store an API object for your platforms to access
-    hass.data[DOMAIN][entry.entry_id] = MyAPI
+    # TODO 3. Store an API object for your platforms to access
+    # hass.data[DOMAIN][entry.entry_id] = MyApi(...)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 

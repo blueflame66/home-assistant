@@ -1,4 +1,4 @@
-"""Config flow for OwnerRez integration."""
+"""Config flow for Owner Reservations integration."""
 from __future__ import annotations
 
 import logging
@@ -10,21 +10,17 @@ from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
-import homeassistant.helpers.config_validation as cv
-from .api import OwnerRes
 
 from .const import DOMAIN
-from .const import DEFAULT_UN, DEFAULT_PT, CONF_DAYS
-from homeassistant.const import CONF_API_TOKEN, CONF_USERNAME
 
 _LOGGER = logging.getLogger(__name__)
 
-# adjust the data schema to the data that you need
+# TODO adjust the data schema to the data that you need
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_USERNAME, default=DEFAULT_UN): str,
-        vol.Required(CONF_API_TOKEN, default=DEFAULT_PT): str,
-        vol.Required(CONF_DAYS, default=365): cv.positive_int,
+        vol.Required("host"): str,
+        vol.Required("username"): str,
+        vol.Required("password"): str,
     }
 )
 
@@ -40,18 +36,16 @@ class PlaceholderHub:
         self.host = host
 
     async def authenticate(self, username: str, password: str) -> bool:
-        test_api = OwnerRes(username, password, 365)
-        test_api_result = await test_api.testconnection()
-        return test_api_result
+        """Test if we can authenticate with the host."""
+        return True
 
 
 async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
     """Validate the user input allows us to connect.
 
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
-
     """
-    # validate the data can be used to set up a connection.
+    # TODO validate the data can be used to set up a connection.
 
     # If your PyPI package is not built with async, pass your methods
     # to the executor:
@@ -59,14 +53,10 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     #     your_validate_func, data["username"], data["password"]
     # )
 
-    hub = PlaceholderHub(data[CONF_USERNAME])
+    hub = PlaceholderHub(data["host"])
 
-    hubresult = await hub.authenticate(data[CONF_USERNAME], data[CONF_API_TOKEN])
-    if hubresult != "OK":
-        if hubresult == "URLNotFound":
-            raise CannotConnect
-        else:
-            raise InvalidAuth
+    if not await hub.authenticate(data["username"], data["password"]):
+        raise InvalidAuth
 
     # If you cannot connect:
     # throw CannotConnect
@@ -74,11 +64,11 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     # InvalidAuth
 
     # Return info that you want to store in the config entry.
-    return {"title": "Owner1"}
+    return {"title": "Name of the device"}
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for OwnerRez."""
+    """Handle a config flow for Owner Reservations."""
 
     VERSION = 1
 
