@@ -1,0 +1,15 @@
+{
+  "domain": "ownerrez",
+  "name": "OwnerRez",
+  "codeowners": [
+    "@blueflame66"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/ownerrez",
+  "homekit": {},
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "ssdp": [],
+  "zeroconf": []
+}

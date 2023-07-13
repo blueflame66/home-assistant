@@ -4080,6 +4080,12 @@
       "config_flow": true,
       "iot_class": "cloud_polling"
     },
+    "ownerrez": {
+      "name": "Owner Reservations",
+      "integration_type": "hub",
+      "config_flow": true,
+      "iot_class": "cloud_polling"
+    },
     "owntracks": {
       "name": "OwnTracks",
       "integration_type": "hub",

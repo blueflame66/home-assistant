@@ -331,6 +331,7 @@ FLOWS = {
         "otbr",
         "overkiz",
         "ovo_energy",
+        "ownerrez",
         "owntracks",
         "p1_monitor",
         "panasonic_viera",
