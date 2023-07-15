@@ -23,7 +23,7 @@ class MyCoordinator(DataUpdateCoordinator):
             # Name of the data. For logging purposes.
             name="My OR Calendars",
             # Polling interval. Will only be polled if there are subscribers.
-            update_interval=timedelta(seconds=600),
+            update_interval=timedelta(seconds=30),
         )
         self.my_api = my_api
         self.hass = hass

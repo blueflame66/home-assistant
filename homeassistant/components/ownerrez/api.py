@@ -76,10 +76,16 @@ class Rental_Property:
             # Need to fix this.  If property TZ is missing I should take it from the Account Profile
             self.TimeZone = "America/New_York"
 
+
         self.daysinfuture = RentProp["daysinfuture"]
         self.auth = RentProp["auth"]
-        self.state = None
+        self._state = None
         self.calendar = []
+
+    @property
+    def state(self):
+        """Return the Rental Properties"""
+        return self._state
 
     async def update(self):
         start_of_events = datetime.now().date()
@@ -144,6 +150,10 @@ class Rental_Property:
                                     booking_departure, date_format
                                 )
                                 booking_departure_tz = tz.localize(booking_departure_dt)
+
+                                # Determine Calendar State
+                                JT = tz.localize(datetime.now())
+                                self._state = True
 
                                 api_url = (
                                     "https://api.ownerreservations.com/v2/guests/"

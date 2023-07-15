@@ -6,9 +6,6 @@ from homeassistant.components.calendar import (
     ENTITY_ID_FORMAT,
     CalendarEntity,
     CalendarEvent,
-    extract_offset,
-    get_date,
-    is_offset_reached,
 )
 from homeassistant.helpers.entity import generate_entity_id
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -73,6 +70,16 @@ class MyOwnerRezCal(CoordinatorEntity, CalendarEntity):
     def name(self):
         """Return the name of the entity."""
         return self._name
+
+    @property
+    def extra_state_attributes(self):
+        """Return the device state attributes."""
+        return {"FirstName": "Glenn", "LastName": "Moore"}
+
+    @property
+    def state(self):
+
+        return True
 
     @callback
     def _handle_coordinator_update(self) -> None:
